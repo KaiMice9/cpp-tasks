@@ -17,7 +17,7 @@ void assert_equal_ld(long double actual, long double expected) {
     test_num++;
 
     if (std::abs(expected - actual) < EPS){
-        std::cout << "PASS: " << suite_name << " test" << test_num << std::endl;
+        std::cout << "OK: " << suite_name << " test" << test_num << std::endl;
 
         return;
     }
@@ -34,7 +34,7 @@ void assert_equal(T actual, T expected) {
     test_num++;
 
     if (expected == actual){
-        std::cout << "PASS: " << suite_name << " test" << test_num << std::endl;
+        std::cout << "OK: " << suite_name << " test" << test_num << std::endl;
 
         return;
     }
@@ -51,7 +51,7 @@ void setup_suite(std::string name) {
 }
 
 void print_summary() {
-    std::cout << "PASS: " << total_test_num -  failed_test_num << "/" << total_test_num << " tests" << std::endl;
+    std::cout << "OK: " << total_test_num -  failed_test_num << "/" << total_test_num << " tests" << std::endl;
 }
 
 void test_builders() {
@@ -183,7 +183,6 @@ int main() {
     test_subs();
     test_copy();
     test_parse();
-
     print_summary();
 
     if (failed_test_num == 0) {
