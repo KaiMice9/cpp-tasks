@@ -8,6 +8,8 @@
 
 #include "sympp.hpp"
 
+//RECURSIVE DESCENT PARSER
+
 namespace parsing {
 
 enum char_type {
@@ -166,8 +168,7 @@ size_t to_prescence(token_type tt) {
         return 1;
     case TOKEN_SUB:
         return 1;
-
-        
+                
     case TOKEN_MUL:
         return 2;
     case TOKEN_DIV:
