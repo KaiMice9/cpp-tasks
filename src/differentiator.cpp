@@ -78,6 +78,27 @@ int eval(int argc, char* argv[]){
 }
 
 
+int diff(int argc, char* argv[]) {
+    if (argc != 4) {
+        std::cerr << "Usage: " << diff_usage << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    try {
+        auto expr = sympp::Parse(argv[2]);
+        auto var = sympp::Symbol<long double>(argv[3]);
+        auto diff = expr->Diff(var);
+        
+        std::cout << diff->String() << std::endl;
+    } catch (const std::exception& e) {
+        std::cerr << "Error: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
 
 int main(int argc, char* argv[]){
     if (argc < 2) {

@@ -174,6 +174,25 @@ void test_parse() {
     assert_equal<std::string>(expr->String(), "(exp(3.14 · x) + cos(2.71 · y))");
 
 }
+void test_diff() {
+    setup_suite("diff");
+
+    auto x = Symbol<long double>("x");
+    auto y = Symbol<long double>("y");
+    auto _5 = Number<long double>(5.0);
+
+    assert_equal<std::string>(x->Diff(x)->String(), "1");
+    assert_equal<std::string>(_5->Diff(x)->String(), "0");
+    assert_equal<std::string>((x + y)->Diff(x)->String(), "(1 + 0)");
+    assert_equal<std::string>((x - y)->Diff(y)->String(), "(0 - 1)");
+    assert_equal<std::string>((x * y)->Diff(x)->String(), "(1 · y + x · 0)");
+    assert_equal<std::string>((x / y)->Diff(x)->String(), "(1 · y - x · 0) / y · y");
+    assert_equal<std::string>((x ^ y)->Diff(x)->String(), "exp(ln(x) · y) · (1 · y / x + ln(x) · 0)");
+    assert_equal<std::string>(Ln(x)->Diff(x)->String(), "1 / x · 1");
+    assert_equal<std::string>(Exp(x)->Diff(x)->String(), "exp(x) · 1");
+    assert_equal<std::string>(Sin(x)->Diff(x)->String(), "cos(x) · 1");
+    assert_equal<std::string>(Cos(x)->Diff(x)->String(), "-1 · sin(x) · 1");
+}
 
 int main() {
     test_builders();
@@ -183,8 +202,8 @@ int main() {
     test_subs();
     test_copy();
     test_parse();
+    test_diff();
     print_summary();
-
     if (failed_test_num == 0) {
         return 0;
     }
